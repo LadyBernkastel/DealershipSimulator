@@ -4,6 +4,10 @@ $(document).ready(function() {
     $("#save-button").click(setFirebase());
     $("#push-button").click(pushFirebase());
     $("#read-button").click(readFirebase());
+    $("#submit-car").click(function(e) {
+        e.preventDefault();
+        addCarToFirebase();
+    });
 });
 
 function setFirebase() {
@@ -30,5 +34,14 @@ function readFirebase() {
       })
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
+    });
+}
+
+function addCarToFirebase() {
+    var pushRef = firebase.child("cars");
+    var make = $("#car-form-make").val();
+    pushRef.push( {
+        make: $("#car-form-make").val(),
+        model: $("#car-form-model").val()
     });
 }
